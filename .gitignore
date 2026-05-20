@@ -4,3 +4,4 @@ leads-*.csv
 leads-*.json
 *.log
 .DS_Store
+.claude/
