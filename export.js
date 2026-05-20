@@ -3,7 +3,14 @@ const { chromium } = require('playwright');
 const path = require('path');
 const fs = require('fs');
 
-const USER_DATA_DIR = path.join(process.cwd(), '.browser-data');
+const USER_DATA_DIR_BASE = path.join(process.cwd(), '.browser-data');
+const BROWSER_CHOICE = (process.env.LSN_BROWSER || 'chromium').toLowerCase();
+const VALID_BROWSERS = { chromium: null, chrome: 'chrome', msedge: 'msedge' };
+if (!(BROWSER_CHOICE in VALID_BROWSERS)) {
+  console.error(`Invalid LSN_BROWSER value: "${BROWSER_CHOICE}". Use chromium, chrome, or msedge.`);
+  process.exit(1);
+}
+const USER_DATA_DIR = path.join(USER_DATA_DIR_BASE, BROWSER_CHOICE);
 const LIST_URL = process.argv[2];
 
 if (!LIST_URL) {
@@ -19,10 +26,13 @@ function csvEscape(v) {
 }
 
 (async () => {
-  const browser = await chromium.launchPersistentContext(USER_DATA_DIR, {
+  const launchOpts = {
     headless: false,
     viewport: { width: 1440, height: 900 },
-  });
+  };
+  if (VALID_BROWSERS[BROWSER_CHOICE]) launchOpts.channel = VALID_BROWSERS[BROWSER_CHOICE];
+  console.log(`Launching ${BROWSER_CHOICE}...`);
+  const browser = await chromium.launchPersistentContext(USER_DATA_DIR, launchOpts);
   const page = browser.pages()[0] || await browser.newPage();
 
   console.log('Navigating to list...');

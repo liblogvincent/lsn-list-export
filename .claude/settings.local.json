@@ -8,7 +8,12 @@
       "Bash(npm init *)",
       "Bash(npm install *)",
       "Bash(npx playwright *)",
-      "Bash(node *)"
+      "Bash(node *)",
+      "Bash(gh *)",
+      "Bash(curl -sL \"https://github.com/liblogvincent/lsn-list-export\")",
+      "Bash(git -C \"C:/users/leevin/documents/lsn\" add -A)",
+      "Bash(git -C \"C:/users/leevin/documents/lsn\" commit -m \"Fix README placeholders; support Chrome/Edge via LSN_BROWSER\")",
+      "Bash(git -C \"C:/users/leevin/documents/lsn\" push)"
     ]
   }
 }

@@ -6,7 +6,7 @@ Runs locally on your machine using your own logged-in browser session. No creden
 
 ## What it does
 
-- Opens a Chromium window
+- Opens a browser window (bundled Chromium by default; can also use your installed Chrome or Microsoft Edge)
 - You log in to LinkedIn / Sales Navigator manually (one time — session is cached)
 - Navigates to the Lead List URL you give it
 - Scrolls through the list, harvests `name`, `title`, `company`, `location`, `profileUrl`
@@ -20,12 +20,12 @@ Runs locally on your machine using your own logged-in browser session. No creden
 ## Install
 
 ```bash
-git clone https://github.com/<you>/lsn-list-export.git
+git clone https://github.com/liblogvincent/lsn-list-export.git
 cd lsn-list-export
 npm install
 ```
 
-`npm install` automatically downloads the bundled Chromium browser via `playwright install`.
+`npm install` automatically downloads the bundled Chromium browser via `playwright install`. If you'd rather use a browser already installed on your computer, see [Choosing a browser](#choosing-a-browser) below.
 
 ## Usage
 
@@ -48,6 +48,29 @@ Wrote /path/to/leads-1779270179027.csv
 name,title,company,location,profileUrl
 Sandra Soriano,Senior Social Media Operations Manager,Hilti Group,"Paris, Île-de-France, France",https://www.linkedin.com/sales/lead/ACwAAAZtVH4BDVf1xDEVjs0OLVYigGJP0D4rCHo
 ```
+
+## Choosing a browser
+
+By default the script uses the bundled Chromium that Playwright downloads during `npm install`. You can switch to your existing Chrome or Edge installation with the `LSN_BROWSER` environment variable:
+
+```bash
+# Bundled Chromium (default)
+node export.js "<list-url>"
+
+# Microsoft Edge (Windows / macOS)
+LSN_BROWSER=msedge node export.js "<list-url>"
+
+# Google Chrome
+LSN_BROWSER=chrome node export.js "<list-url>"
+```
+
+PowerShell syntax (Windows):
+
+```powershell
+$env:LSN_BROWSER="msedge"; node export.js "<list-url>"
+```
+
+The chosen browser must already be installed on your system. Each browser keeps its own cached login under a separate folder inside `.browser-data/`.
 
 ## How to find your Lead List URL
 
