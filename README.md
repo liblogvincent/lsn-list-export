@@ -17,7 +17,59 @@ Runs locally on your machine using your own logged-in browser session. No creden
 - Node.js 18+
 - A LinkedIn Sales Navigator account (Core, Advanced, or Advanced Plus)
 
-## Install
+## Step-by-step setup (for non-developers)
+
+### 1. Install Node.js
+
+Node.js is the runtime that lets the script run on your computer.
+
+- **Windows / macOS:** go to <https://nodejs.org/en/download> and download the **LTS** installer. Run it and click *Next* through the prompts.
+- **Linux:** `sudo apt install nodejs npm` (Debian/Ubuntu) or use [nvm](https://github.com/nvm-sh/nvm).
+
+To confirm it's installed, open a terminal (next step) and type:
+
+```bash
+node -v
+```
+
+You should see something like `v20.11.0`. Any version 18 or newer works.
+
+### 2. Open a terminal
+
+A terminal is a window where you type commands.
+
+- **Windows:** press `Win + R`, type `powershell`, press Enter. Or right-click the Start menu → *Terminal* / *Windows PowerShell*.
+- **macOS:** press `Cmd + Space`, type `Terminal`, press Enter.
+- **Linux:** press `Ctrl + Alt + T`, or open *Terminal* from your applications menu.
+
+### 3. Download the code
+
+In the terminal, paste this and press Enter:
+
+```bash
+git clone https://github.com/liblogvincent/lsn-list-export.git
+cd lsn-list-export
+```
+
+> Don't have `git`? Either [install Git](https://git-scm.com/downloads), **or** download the ZIP from <https://github.com/liblogvincent/lsn-list-export> (green *Code* button → *Download ZIP*), unzip it, then `cd` into the folder.
+
+### 4. Install dependencies
+
+```bash
+npm install
+```
+
+This downloads Playwright and a bundled Chromium browser. First run takes a couple of minutes.
+
+### 5. Run the export
+
+```bash
+node export.js "https://www.linkedin.com/sales/lists/people/<your-list-id>"
+```
+
+A browser window will open. Log in to LinkedIn (only the first time) — your session is cached for next time.
+
+## Install (short version, for developers)
 
 ```bash
 git clone https://github.com/liblogvincent/lsn-list-export.git
